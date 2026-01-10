@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'docker/**'
+      - 'scripts/**'      # <--- NYTT: Så att workflowet startar när du ändrar scripten
+      - '.github/**'      # <--- NYTT: Så att workflowet startar när du ändrar denna fil
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -24,3 +26,21 @@ jobs:
             rules:
               line-length: disable
               truthy: disable
+
+  health-check:
+    name: Test Running Services
+    runs-on: self-hosted
+    steps:
+      - name: Hämta koden
+        uses: actions/checkout@v4
+
+      - name: Installera Python-beroenden
+        run: |
+          pip install -r requirements.txt
+
+      - name: Kör Health Check Script
+        env:
+          # HÄR hämtar vi hemligheten från GitHub och skickar in den
+          # som en miljövariabel till din runner.
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: python3 scripts/check_health.py
