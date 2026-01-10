@@ -5,6 +5,7 @@ on:
       - 'docker/**'
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   lint-yaml:
