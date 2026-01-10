@@ -13,12 +13,15 @@ except ValueError:
     print("❌ Error: SSH_PORT environment variable must be a number.")
     sys.exit(1)
 
-# --- KONFIGURATION ---
 SERVICES = [
-    # Här använder vi variabeln istället för att skriva 22456 direkt
-    ("SSH Server", "tcp", "localhost", SSH_PORT),
-    # ("AdGuard Home", "http", "http://localhost:3000", None),
+    ("SSH Server",    "tcp",  "localhost", SSH_PORT),
+    ("AdGuard Home",  "http", "http://localhost:3000", None),
+    ("Grafana",       "http", "http://localhost:3010/login", None), # OBS: Port 3010
+    ("Prometheus",    "http", "http://localhost:9090/graph", None),
+    ("Uptime Kuma",   "http", "http://localhost:3001", None),
+    ("Portainer",     "http", "http://localhost:9000", None),
 ]
+
 
 def check_tcp_port(host, port):
     try:
