@@ -5,15 +5,6 @@ jobs:
   test-runner:
     runs-on: self-hosted # <--- Signalen till din server
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Say Hello
-        run: |
-          echo "Hej från GitHub! Jag körs nu på din server."
-          echo "Serverns namn är: $(hostname)"
-          echo "Datum: $(date)"
-
-      - name: Check files
-        run: ls -la # Visar att filerna från repot faktiskt landat på servern
-
+      -  name: Validera konfigurationen (Dry Run)
+        # Detta kollar bara om filen är korrekt skriven, men startar inget!
+        run: docker compose config

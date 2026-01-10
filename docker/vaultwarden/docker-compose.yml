@@ -1,0 +1,16 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    ports:
+      - "8001:80"  # Utsidan (8001) -> Insidan (80)
+    volumes:
+      - vw-data:/data
+    environment:
+      - SIGNUPS_ALLOWED=false
+
+
+volumes:
+  vw-data:
+    external: true

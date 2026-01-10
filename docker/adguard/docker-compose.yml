@@ -1,0 +1,17 @@
+services:
+  adguard:
+    container_name: adguardhome
+    image: adguard/adguardhome
+    restart: unless-stopped
+
+    # Utan detta nollställs allt om du uppdaterar.
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+
+    # Formatet är "UTSIDA:INSIDA".
+    ports:
+      - "53:53/tcp"   # DNS använder både TCP och UDP
+      - "53:53/udp"
+      - "80:80/tcp"   # Webbgränssnittet (om du vill ha det på port 80)
+      - "3000:3000/tcp" # Första installationen sker ofta här

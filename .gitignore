@@ -1,0 +1,24 @@
+# --- .gitignore ---
+
+# Ignorera systemfiler
+.DS_Store
+Thumbs.db
+
+# Ignorera miljöfiler med lösenord (JÄTTEVIKTIGT)
+.env
+*.env
+
+# Ignorera vanliga datamappar (Lägg till dina egna här)
+**/data/
+**/db/
+**/mysql/
+**/postgres/
+**/influxdb/
+**/logs/
+**/tmp/
+
+# Ignorera Portainer data
+**/portainer_data/
+
+**/adguard/work/
+**/adguard/conf/
