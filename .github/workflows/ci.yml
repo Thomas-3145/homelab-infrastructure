@@ -1,0 +1,25 @@
+name: CI - Code Quality
+on:
+  push:
+    paths:
+      - 'docker/**'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint-yaml:
+    name: Check YAML Syntax
+    runs-on: self-hosted
+    steps:
+      - name: Hämta koden
+        uses: actions/checkout@v4
+
+      - name: Kör YAML Linter
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: docker/
+          config_data: |
+            extends: default
+            rules:
+              line-length: disable
+              truthy: disable
