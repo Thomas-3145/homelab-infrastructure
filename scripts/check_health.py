@@ -15,7 +15,7 @@ except ValueError:
 
 SERVICES = [
     ("SSH Server",    "tcp",  "localhost", SSH_PORT),
-    ("AdGuard Home",  "http", "http://localhost:3000", None),
+    ("AdGuard Home",  "http", "http://localhost:80", None),
     ("Grafana",       "http", "http://localhost:3010/login", None), # OBS: Port 3010
     ("Prometheus",    "http", "http://localhost:9090/graph", None),
     ("Uptime Kuma",   "http", "http://localhost:3001", None),
