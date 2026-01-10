@@ -1,3 +1,6 @@
+[![CI - Code Quality](https://github.com/Thomas-3145/homelab-infrastructure/actions/workflows/ci.yml/badge.svg)](https://github.com/Thomas-3145/homelab-infrastructure/actions/workflows/ci.yml) ![Runner](https://img.shields.io/badge/Runner-Self--Hosted-blue?style=flat&logo=githubactions&logoColor=white)
+
+
 # 🏡 HomeLab Infrastructure
 
 Detta repo innehåller "Infrastructure as Code" (IaC) för min privata hemmaserver.
