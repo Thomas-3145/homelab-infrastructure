@@ -1,0 +1,19 @@
+name: Test Connection
+on: [push] # Körs varje gång du pushar kod
+
+jobs:
+  test-runner:
+    runs-on: self-hosted # <--- Signalen till din server
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Say Hello
+        run: |
+          echo "Hej från GitHub! Jag körs nu på din server."
+          echo "Serverns namn är: $(hostname)"
+          echo "Datum: $(date)"
+
+      - name: Check files
+        run: ls -la # Visar att filerna från repot faktiskt landat på servern
+
