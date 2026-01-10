@@ -9,7 +9,7 @@ services:
       - ./work:/opt/adguardhome/work
       - ./conf:/opt/adguardhome/conf
 
-    # Formatet är "UTSIDA:INSIDA".
+    # Formatet är "UTSIDA:INSIDA"
     ports:
       - "53:53/tcp"   # DNS använder både TCP och UDP
       - "53:53/udp"
