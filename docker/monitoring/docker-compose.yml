@@ -7,6 +7,8 @@ services:
     ports:
       - "9090:9090"
     restart: always
+    networks:
+      - monitoring
 
   grafana:
     image: grafana/grafana:latest
@@ -16,6 +18,10 @@ services:
     restart: always
     volumes:
       - grafana-data:/var/lib/grafana
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus  # Starta inte Grafana förrän Prometheus är igång
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
@@ -25,6 +31,21 @@ services:
     ports:
       - "3001:3001"
     restart: always
+    networks:
+      - monitoring
+
+  # NY TJÄNST: Node Exporter (Mäter serverns hälsa)
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: always
+    volumes:
+      - '/:/host:ro,rslave'
+    networks:
+      - monitoring
 
   watchtower:
     image: containrrr/watchtower
@@ -32,6 +53,14 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
+    networks:
+      - monitoring
+
+# Här definierar vi nätverket så Docker skapar det åt oss
+networks:
+  monitoring:
+    name: monitoring
+    driver: bridge
 
 volumes:
   grafana-data:
