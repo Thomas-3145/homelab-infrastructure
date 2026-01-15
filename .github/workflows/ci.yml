@@ -3,16 +3,17 @@ on:
   push:
     paths:
       - 'docker/**'
-      - 'scripts/**'      # <--- NYTT: Så att workflowet startar när du ändrar scripten
-      - '.github/**'      # <--- NYTT: Så att workflowet startar när du ändrar denna fil
+      - 'scripts/**'
+      - '.github/**'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
+  # JOBB 1: Kolla YAML-syntax (Dina docker-compose filer)
   lint-yaml:
     name: Check YAML Syntax
-    runs-on: self-hosted
+    runs-on: ubuntu-latest  # <-- Tips: Detta kan vi köra på GitHubs servrar gratis! Det sparar din servers CPU.
     steps:
       - name: Hämta koden
         uses: actions/checkout@v4
@@ -27,20 +28,36 @@ jobs:
               line-length: disable
               truthy: disable
 
+  # JOBB 2: Kolla Bash-script (Nytt!)
+  lint-bash:
+    name: Check Bash Scripts
+    runs-on: ubuntu-latest # Körs också snabbt hos GitHub
+    steps:
+      - name: Hämta koden
+        uses: actions/checkout@v4
+      
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+
+  # JOBB 3: Testa servern (Körs BARA om linting går igenom)
   health-check:
     name: Test Running Services
     runs-on: self-hosted
+    needs: [lint-yaml, lint-bash] # <-- VIKTIGT: Vänta på att granskningen är godkänd
     steps:
       - name: Hämta koden
         uses: actions/checkout@v4
 
       - name: Installera Python-beroenden
+        # Vi installerar bara om paketen saknas för att spara tid
         run: |
-          pip3 install -r requirements.txt --break-system-packages
+          if [ -f requirements.txt ]; then
+            pip3 install -r requirements.txt --break-system-packages
+          fi
 
       - name: Kör Health Check Script
         env:
-          # HÄR hämtar vi hemligheten från GitHub och skickar in den
-          # som en miljövariabel till din runner.
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: python3 scripts/check_health.py
