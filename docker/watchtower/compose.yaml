@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      # Watchtower måste kunna prata med Docker-motorn för att uppdatera andra
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      # Städar bort gamla images efter uppdatering (sparar diskutrymme)
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=86400
