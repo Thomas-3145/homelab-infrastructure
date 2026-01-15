@@ -13,13 +13,14 @@ except ValueError:
     print("❌ Error: SSH_PORT environment variable must be a number.")
     sys.exit(1)
 
+# UPPDATERAD LISTA HÄR:
 SERVICES = [
     ("SSH Server",    "tcp",  "localhost", SSH_PORT),
     ("AdGuard Home",  "http", "http://localhost:80", None),
-    ("Grafana",       "http", "http://localhost:3010/login", None), # OBS: Port 3010
+    ("Grafana",       "http", "http://localhost:3010/login", None),
     ("Prometheus",    "http", "http://localhost:9090/graph", None),
     ("Uptime Kuma",   "http", "http://localhost:3001", None),
-    ("Portainer",     "http", "http://localhost:9000", None),
+    ("Dockge",        "http", "http://localhost:5001", None),
 ]
 
 
@@ -35,6 +36,8 @@ def check_tcp_port(host, port):
 
 def check_http_url(url):
     try:
+        # Dockge (och andra tjänster) kan ibland omdirigera vid inloggning. 
+        # Requests följer redirects automatiskt, vilket är bra.
         response = requests.get(url, timeout=5)
         return 200 <= response.status_code < 300
     except:
