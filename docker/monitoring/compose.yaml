@@ -3,6 +3,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
+      # HÄR är fixen vi gjorde! ./ betyder "filen i denna mapp"
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
@@ -21,7 +22,7 @@ services:
     networks:
       - monitoring
     depends_on:
-      - prometheus  # Starta inte Grafana förrän Prometheus är igång
+      - prometheus
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
@@ -34,7 +35,6 @@ services:
     networks:
       - monitoring
 
-  # NY TJÄNST: Node Exporter (Mäter serverns hälsa)
   node-exporter:
     image: quay.io/prometheus/node-exporter:latest
     container_name: node_exporter
@@ -46,16 +46,6 @@ services:
       - '/:/host:ro,rslave'
     networks:
       - monitoring
-
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: always
-    networks:
-      - monitoring
-
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -73,7 +63,6 @@ services:
     networks:
       - monitoring
 
-# Här definierar vi nätverket så Docker skapar det åt oss
 networks:
   monitoring:
     name: monitoring
