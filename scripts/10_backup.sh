@@ -35,13 +35,10 @@ done
 echo "📦 Compressing data..."
 # Vi exkluderar backups-mappen själv så vi inte backar upp backupen (Inception!)
 cd "$BASE_DIR"
-tar --exclude='./backups' -czf "$BACKUP_DIR/homelab_backup_$DATE.tar.gz" docker .env scripts
-
-if [ $? -eq 0 ]; then
+if tar --exclude='./backups' -czf "$BACKUP_DIR/homelab_backup_$DATE.tar.gz" docker .env scripts; then
     echo "✅ Backup created: homelab_backup_$DATE.tar.gz"
 else
     echo "❌ Backup failed!"
-    # Vi försöker starta allt ändå
 fi
 
 # 4. Starta upp allt igen

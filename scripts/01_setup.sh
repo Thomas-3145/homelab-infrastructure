@@ -21,7 +21,7 @@ if ! command -v docker &> /dev/null; then
     rm get-docker.sh
     
     # Lägg till användaren i docker-gruppen
-    sudo usermod -aG docker $USER
+    sudo usermod -aG docker "$USER"
     echo "User added to Docker group."
 else
     echo "Docker already installed."
