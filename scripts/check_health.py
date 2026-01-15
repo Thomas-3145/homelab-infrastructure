@@ -27,7 +27,6 @@ except ValueError:
 SERVICES = [
     ("SSH Server",    "tcp",  "localhost", SSH_PORT),
     ("AdGuard Home",  "http", "http://localhost:80", None),
-    ("AdGuard Admin", "http", "http://localhost:3000", None), # La till denna
     ("Grafana",       "http", "http://localhost:3010/login", None),
     ("Prometheus",    "http", "http://localhost:9090", None), # Grafana behöver inte /graph
     ("Uptime Kuma",   "http", "http://localhost:3001", None),
