@@ -8,6 +8,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/app/data
-      - /home/thomas/docker:/opt/stacks
+      - /home/thomas/homelab-infrastructure/docker:/opt/stacks
     environment:
       - DOCKGE_STACKS_DIR=/opt/stacks
