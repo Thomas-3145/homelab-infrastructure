@@ -4,7 +4,7 @@ services:
     image: adguard/adguardhome
     restart: unless-stopped
 
-    # Utan detta nollställs allt om du uppdaterar.
+    # Utan detta nollställs allt vid  uppdaterar.
     volumes:
       - ./work:/opt/adguardhome/work
       - ./conf:/opt/adguardhome/conf

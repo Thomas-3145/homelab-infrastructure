@@ -7,6 +7,8 @@ services:
       - "8001:80"  # Utsidan (8001) -> Insidan (80)
     volumes:
       - vw-data:/data
+    env_file:
+      - .env
     environment:
       - SIGNUPS_ALLOWED=false
 

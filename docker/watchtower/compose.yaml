@@ -6,6 +6,8 @@ services:
     volumes:
       # Watchtower måste kunna prata med Docker-motorn för att uppdatera andra
       - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
     environment:
       # Städar bort gamla images efter uppdatering (sparar diskutrymme)
       - WATCHTOWER_CLEANUP=true
