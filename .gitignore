@@ -8,6 +8,7 @@ Thumbs.db
 .env
 *.env
 .env.backup
+.env.backup.example
 
 # Ignorera vanliga datamappar (Lägg till dina egna här)
 **/data/
