@@ -171,14 +171,18 @@ EOF
     # Lägg till SSH-nyckel om den finns
     if [[ -f "$HOME/.ssh/id_rsa.pub" ]]; then
         log_info "Lägger till din SSH-nyckel..."
-        echo "" >> "$cloud_init"
-        echo "ssh_authorized_keys:" >> "$cloud_init"
-        echo "  - $(cat "$HOME/.ssh/id_rsa.pub")" >> "$cloud_init"
+        {
+            echo ""
+            echo "ssh_authorized_keys:"
+            echo "  - $(cat "$HOME/.ssh/id_rsa.pub")"
+        } >> "$cloud_init"
     elif [[ -f "$HOME/.ssh/id_ed25519.pub" ]]; then
         log_info "Lägger till din SSH-nyckel (ed25519)..."
-        echo "" >> "$cloud_init"
-        echo "ssh_authorized_keys:" >> "$cloud_init"
-        echo "  - $(cat "$HOME/.ssh/id_ed25519.pub")" >> "$cloud_init"
+        {
+            echo ""
+            echo "ssh_authorized_keys:"
+            echo "  - $(cat "$HOME/.ssh/id_ed25519.pub")"
+        } >> "$cloud_init"
     else
         log_warn "Ingen SSH-nyckel hittades. Använd 'multipass shell' för åtkomst."
     fi
