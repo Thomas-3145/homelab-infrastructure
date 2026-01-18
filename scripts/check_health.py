@@ -51,11 +51,14 @@ def check_system_resources():
     # 2. RAM (Vi läser /proc/meminfo för att slippa externa bibliotek)
     try:
         with open('/proc/meminfo', 'r') as mem:
-            lines = mem.readlines()
-        mem_total = int(lines[0].split()[1]) // 1024 # KB -> MB
-        mem_free = int(lines[1].split()[1]) // 1024
-        # Enkel uträkning (Total - Free är inte exakt 'Used' i Linux, men nära nog)
-        print(f"🧠 RAM Total:  {mem_total} MB")
+            meminfo = {}
+            for line in mem:
+                parts = line.split()
+                meminfo[parts[0].rstrip(':')] = int(parts[1])
+        mem_total = meminfo.get('MemTotal', 0) // 1024  # KB -> MB
+        mem_available = meminfo.get('MemAvailable', 0) // 1024
+        mem_used = mem_total - mem_available
+        print(f"🧠 RAM Usage:  {mem_used} MB used / {mem_total} MB total")
     except FileNotFoundError:
         print("🧠 RAM info:   Not available (Are you on Linux?)")
 
@@ -88,7 +91,7 @@ def check_tcp_port(host, port):
         result = sock.connect_ex((host, port))
         sock.close()
         return result == 0
-    except:
+    except (socket.error, socket.timeout, OSError):
         return False
 
 def check_http_url(url):
@@ -97,7 +100,7 @@ def check_http_url(url):
         response = requests.get(url, timeout=3, allow_redirects=True)
         return 200 <= response.status_code < 300 or response.status_code == 401
         # Notera: 401 (Unauthorized) betyder att tjänsten lever men kräver inloggning. Det är OK!
-    except:
+    except (requests.RequestException, requests.Timeout, ConnectionError):
         return False
 
 # --- MAIN ---

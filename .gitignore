@@ -7,6 +7,7 @@ Thumbs.db
 # Ignorera miljöfiler med lösenord (JÄTTEVIKTIGT)
 .env
 *.env
+.env.backup
 
 # Ignorera vanliga datamappar (Lägg till dina egna här)
 **/data/
@@ -22,5 +23,9 @@ Thumbs.db
 
 **/adguard/work/
 **/adguard/conf/
+
+# Restic backup repository (lokal)
+restic-repo/
+restore-*/
 
 **/CLAUDE.md

@@ -11,7 +11,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt autoremove -y
 
 # 2. Uppdatera Infrastruktur-koden (Git)
-echo "octocat: Updating Git Repository..."
+echo "📥 Updating Git Repository..."
 if [[ -d "$BASE_DIR" ]]; then
     cd "$BASE_DIR"
     git pull

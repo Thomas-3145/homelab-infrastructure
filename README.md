@@ -100,12 +100,38 @@ Servern uppdaterar containers automatiskt via **Watchtower**. För att uppdatera
 ./scripts/11_update.sh
 ```
 
-### Backup
-Backuper körs på hela `docker`-mappen (konfigurationer och volymer).
+### Backup (tar.gz)
+Enkel backup som tar.gz-arkiv:
 ```bash
 ./scripts/10_backup.sh
 ```
 *Backuper sparas lokalt i `./backups/` med 7 dagars retention.*
+
+### Backup (Restic - Rekommenderad)
+Inkrementella, krypterade backups med restic. Redo för off-site (NAS/cloud).
+```bash
+# Första gången: Kopiera och konfigurera
+cp .env.backup.example .env.backup
+nano .env.backup  # Sätt RESTIC_PASSWORD!
+
+# Kör backup
+./scripts/12_restic_backup.sh
+
+# Visa snapshots
+./scripts/13_restic_restore.sh list
+
+# Lista filer i senaste backup
+./scripts/13_restic_restore.sh files latest
+
+# Återställ backup
+./scripts/13_restic_restore.sh restore latest
+```
+
+**Fördelar med Restic:**
+- Inkrementella backups (bara ändringar sparas)
+- AES-256 kryptering
+- Deduplicering (sparar diskutrymme)
+- Enkel migrering till NAS/cloud (ändra bara `RESTIC_REPOSITORY`)
 
 ### Hälsokontroll
 Ett Python-script som ger en ögonblicksbild av systemets status (Temp, RAM, Disk, Tjänster).
@@ -130,7 +156,7 @@ Säkerheten är implementerad i lager ("Defense in Depth"):
 - [x] Automatisera backupscripts.
 - [x] Hårdvaruspecifika scripts för Pi 5 (Fan control).
 - [ ] Utöka CI/CD för att linta Docker Compose-filer.
-- [ ] Konfigurera fjärr-backup (Off-site).
+- [x] Konfigurera fjärr-backup (Off-site) - Restic implementerat, redo för NAS/cloud.
 
 ## 📝 Licens
 MIT
