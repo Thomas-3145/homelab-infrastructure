@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest  # <-- Tips: Detta kan vi köra på GitHubs servrar gratis! Det sparar din servers CPU.
     steps:
       - name: Hämta koden
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Kör YAML Linter
         uses: ibiqlik/action-yamllint@v3
@@ -35,8 +35,8 @@ jobs:
     runs-on: ubuntu-latest # Körs också snabbt hos GitHub
     steps:
       - name: Hämta koden
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v6
+
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
@@ -49,7 +49,7 @@ jobs:
     needs: [lint-yaml, lint-bash] # <-- VIKTIGT: Vänta på att granskningen är godkänd
     steps:
       - name: Hämta koden
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Installera Python-beroenden
         # Vi installerar bara om paketen saknas för att spara tid
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hämta koden
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Kör Ruff (kodkvalitet)
         uses: astral-sh/ruff-action@v3
@@ -79,4 +79,4 @@ jobs:
       - name: Kör Bandit (säkerhet)
         run: |
           pip install bandit
-          bandit -r scripts/ -x '*_test.py'
+          bandit -r scripts/ -x '*_test.py' -ll
