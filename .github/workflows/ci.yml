@@ -2,10 +2,10 @@ name: CI - Code Quality
 on:
   push:
     paths:
-      - 'docker/**'     # Jobb 1
-      - 'scripts/**'    # Jobb 2
+      - 'docker/**'
+      - 'scripts/**'
       - '.github/**'
-      - '*.py'          # jobb 4
+      - '*.py'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
