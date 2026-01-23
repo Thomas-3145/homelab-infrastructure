@@ -1,4 +1,4 @@
-name: CI - Code Quality
+'name: CI - Code Quality
 on:
   push:
     paths:
@@ -63,20 +63,20 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: python3 scripts/check_health.py
 
-    # JOBB 4: Python kodkvalitet och säkerhet
-    lint-python:
-      name: Check Python Code
-      runs-on: ubuntu-latest
-      steps:
-        - name: Hämta koden
-          uses: actions/checkout@v4
+  # JOBB 4: Python kodkvalitet och säkerhet
+  lint-python:
+    name: Check Python Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hämta koden
+        uses: actions/checkout@v4
 
-        - name: Kör Ruff (kodkvalitet)
-          uses: astral-sh/ruff-action@v3
-          with:
-            src: "./scripts"
+      - name: Kör Ruff (kodkvalitet)
+        uses: astral-sh/ruff-action@v3
+        with:
+          src: "./scripts"
 
-        - name: Kör Bandit (säkerhet)
-          run: |
-            pip install bandit
-            bandit -r scripts/ -x '*_test.py'
+      - name: Kör Bandit (säkerhet)
+        run: |
+          pip install bandit
+          bandit -r scripts/ -x '*_test.py'
