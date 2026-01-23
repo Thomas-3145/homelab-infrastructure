@@ -4,7 +4,6 @@ import sys
 import os
 import shutil
 import subprocess
-import time
 
 # Försök importera requests, annars ge ett tydligt felmeddelande
 try:
