@@ -28,5 +28,6 @@ Thumbs.db
 # Restic backup repository (lokal)
 restic-repo/
 restore-*/
+restic-backup.log
 
 **/CLAUDE.md
