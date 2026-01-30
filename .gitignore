@@ -31,3 +31,4 @@ restore-*/
 restic-backup.log
 
 **/CLAUDE.md
+docker/my-blog/

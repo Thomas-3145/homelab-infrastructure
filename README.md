@@ -1,5 +1,10 @@
+> **📌 Projektstatus:** Detta repo representerar min Docker-baserade homelab-setup (jan 2025).  
+> Efter uppgradering till GL.iNet Flint 2 router och planerad migration till k3s är denna kod inte längre i aktivt bruk.  
+> Se framtida repo för k3s-baserad setup.
+
 [![CI - Code Quality](https://github.com/Thomas-3145/homelab-infrastructure/actions/workflows/ci.yml/badge.svg)](https://github.com/Thomas-3145/homelab-infrastructure/actions/workflows/ci.yml) ![Runner](https://img.shields.io/badge/Runner-Self--Hosted-blue?style=flat&logo=githubactions&logoColor=white) ![Raspberry Pi 5](https://img.shields.io/badge/Hardware-RPi%205-C51A4A?logo=raspberrypi&logoColor=white)
 
+# 🏡 3145 Home Server Infrastructure
 # 🏡 3145 Home Server Infrastructure
 
 Detta repo innehåller "Infrastructure as Code" (IaC) för min privata hemmaserver.
